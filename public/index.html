@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mes livres</title>
+</head>
+<body>
+  <h1>Liste des livres</h1>
+  <ul id="liste"></ul>
+  <script>
+    async function charger() {
+      const livres = await (await fetch('/livres')).json();
+      const ul = document.getElementById('liste');
+      ul.innerHTML = '';
+      livres.forEach(l => {
+        const li = document.createElement('li');
+        li.textContent = `${l.titre} - ${l.auteur} (${l.annee || '?'})`;
+        ul.appendChild(li);
+      });
+    }
+
+    charger();
+  </script>
+</body>
+</html>
